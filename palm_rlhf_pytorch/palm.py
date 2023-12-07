@@ -57,7 +57,7 @@ class Residual(nn.Module):
     def forward(self, x, **kwargs):
         y = self.fn(x, **kwargs)
 
-        if not any([t.requires_grad for t in (x, y)]):
+        if not any(t.requires_grad for t in (x, y)):
             return x.add_(y)
 
         return y + x
