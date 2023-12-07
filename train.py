@@ -1,5 +1,4 @@
 import gzip
-import random
 import tqdm
 import numpy as np
 
@@ -10,6 +9,7 @@ from torch.utils.data import DataLoader, Dataset
 
 from palm_rlhf_pytorch import PaLM
 from accelerate import Accelerator
+import secrets
 
 # constants
 
@@ -108,7 +108,7 @@ for i in tqdm.tqdm(range(NUM_BATCHES), mininterval=10.0, desc="training"):
 
     if i % GENERATE_EVERY == 0:
         model.eval()
-        inp = random.choice(val_dataset)[:PRIME_LENGTH]
+        inp = secrets.SystemRandom().choice(val_dataset)[:PRIME_LENGTH]
         prime = decode_tokens(inp)
         accelerator.print(f"%s \n\n %s", (prime, "*" * 100))
 
