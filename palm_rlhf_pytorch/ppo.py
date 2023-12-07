@@ -4,7 +4,6 @@ import copy
 from tqdm import tqdm
 from functools import partial
 from collections import deque, namedtuple
-from random import randrange
 
 from beartype import beartype
 from beartype.typing import List, Optional, Callable, Deque
@@ -26,6 +25,7 @@ from palm_rlhf_pytorch.optimizer import get_optimizer
 from palm_rlhf_pytorch.utils import masked_mean, eval_decorator
 
 from accelerate import Accelerator
+import secrets
 
 # actor critic - PaLM with lora
 
@@ -593,7 +593,7 @@ class RLHFTrainer(nn.Module):
                 # and get the action (sampled sequence from palm as well as the action probs)
                 # also calculate the reward using reward model and store
 
-                rand_prompt_index = randrange(0, self.num_prompts)
+                rand_prompt_index = secrets.SystemRandom().randrange(0, self.num_prompts)
 
                 state = self.prompt_token_ids[rand_prompt_index]
 
