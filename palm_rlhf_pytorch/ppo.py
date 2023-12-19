@@ -235,10 +235,9 @@ def masked_normalize(t, eps = 1e-5, mask = None, dim = None):
 
 def pad_sequence_fixed(sequences, *args, **kwargs):
     first_el = sequences[0]
-    has_no_dimension = first_el.ndim == 0
 
     # if no dimensions, add a single dimension
-    if has_no_dimension:
+    if has_no_dimension := first_el.ndim == 0:
         sequences = tuple(map(lambda t: t[None], sequences))
 
     out = pad_sequence(sequences, *args, **kwargs)
